@@ -1,9 +1,10 @@
 PFont pixelFont;
 int[] chosenPixels = new int[8];
-
 color baseColor = #FF3939;
 String name = "Bon Jon Io Quant";
+
 ArrayList<Character> initials = new ArrayList<Character>();
+JSONArray namesList;
 
 void setup(){
   size(320, 220, P2D); 
@@ -11,6 +12,13 @@ void setup(){
   background(baseColor);
   textFont(pixelFont, 320);
   textAlign(LEFT, CENTER);
+  
+  namesList = loadJSONArray("members.json");
+  for (int i = 0; i < namesList.size(); i++) {
+    JSONObject member = namesList.getJSONObject(i); 
+    String name = member.getString("name");
+    println(name);
+  }
 }
 
 void mousePressed(){
