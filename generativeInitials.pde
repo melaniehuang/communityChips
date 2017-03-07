@@ -1,10 +1,9 @@
 PFont pixelFont;
 int[] chosenPixels = new int[8];
-color baseColor = #FF3939;
+color baseColor = #492EFF;
 String name = "Bon Jon Io Quant";
-
 ArrayList<Character> initials = new ArrayList<Character>();
-JSONArray namesList;
+StringList memberNames = new StringList();
 
 void setup(){
   size(320, 220, P2D); 
@@ -13,17 +12,24 @@ void setup(){
   textFont(pixelFont, 320);
   textAlign(LEFT, CENTER);
   
-  namesList = loadJSONArray("members.json");
-  for (int i = 0; i < namesList.size(); i++) {
-    JSONObject member = namesList.getJSONObject(i); 
+  JSONObject request = loadJSONObject("members.json");
+  JSONArray members = request.getJSONArray("data");
+  
+  for (int n = 0; n < members.size(); n++){
+    JSONObject member = members.getJSONObject(n); 
     String name = member.getString("name");
-    println(name);
+    memberNames.append(name);
   }
 }
 
 void mousePressed(){
+  background(baseColor);
   
-  String[] firstLast = split(name, " ");
+  int randomMember = int(random(0, memberNames.size()));
+  String selectedMember = memberNames.get(randomMember);
+  println(selectedMember);
+  
+  String[] firstLast = split(selectedMember, " ");
     
   if (firstLast.length == 1){
     String firstname = firstLast[0];
@@ -37,8 +43,7 @@ void mousePressed(){
     initials.add(firstname.charAt(0));
     initials.add(lastname.charAt(0));
   }
-  
-  background(baseColor);
+    
   fill(255);
   noStroke();
   rect(20,20,140,180);
@@ -50,6 +55,10 @@ void mousePressed(){
   
   drawBorder(); 
   drawInitials(initials.get(0), initials.get(1));
+  
+  initials.clear();
+  
+  println(initials);
 }
 
 void drawBorder(){
