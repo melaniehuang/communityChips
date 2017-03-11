@@ -1,6 +1,6 @@
 PFont pixelFont;
 color baseColor = #492EFF;
-int u = 40;
+int u = 4;
 ArrayList<Character> initials = new ArrayList<Character>();
 int[] chosenPixels = new int[8];
 StringList memberNames = new StringList();
@@ -9,7 +9,7 @@ void setup(){
   size(640, 440, P2D); 
   pixelFont = loadFont("creativetech-320.vlw");
   background(baseColor);
-  textFont(pixelFont, 320);
+  textFont(pixelFont, u*16);
   textAlign(LEFT, CENTER);
   
   JSONObject request = loadJSONObject("members.json");
@@ -77,38 +77,38 @@ void drawBorder(){
     if (chosenPixels[i] == 0){
       rect(0,0,u,u);
     } else if (chosenPixels[i] == 15){
-      rect(width-u,0,u,u);
+      rect((u*16)-u,0,u,u);
     } else {
-      rect(chosenPixels[i]*20,0,u,u);
+      rect(chosenPixels[i]*u,0,u,u);
       fill(baseColor);
-      rect(chosenPixels[i]*20,20,u,u);
+      rect(chosenPixels[i]*u,u,u,u);
     }
     
     fill(255);
     
     if (chosenPixels[i] == 25){
-      rect(width-20, height-20, 20, 20);
+      rect((u*16)-u, (u*11)-u, u, u);
     } else if (chosenPixels[i] == 40){
-      rect(0, height-20, 20, 20);
+      rect(0, (u*11)-u, u, u);
     } else {
-      rect(width - 20 - ((chosenPixels[i+4] - 25) * 20), height - 20, 20, 20);
+      rect((u*16)- u - ((chosenPixels[i+4] - 25) * u), (u*11) - u, u, u);
       fill(baseColor);
-      rect(chosenPixels[i]*20,20,20,20);
+      rect(chosenPixels[i]*u,u,u, u);
     }
     
     fill(255);
-    rect(width - 20, 20 + ((chosenPixels[i+2] - 16) * 20), 20, 20);
-    rect(0, height - 20 - ((chosenPixels[i+6] - 40) * 20), 20, 20);
+    rect((u*16)-u, u + ((chosenPixels[i+2] - 16) * u), u, u);
+    rect(0, (u*11)- u - ((chosenPixels[i+6] - 40) * u), u, u);
     
     fill(baseColor);
-    rect(width - 40, 20 + ((chosenPixels[i+2] - 16) * 20), 20, 20); 
-    rect(20, height - 20 - ((chosenPixels[i+6] - 40) * 20), 20, 20);
+    rect((u*16)-(u*2), u + ((chosenPixels[i+2] - 16) * u), u, u); 
+    rect(u, (u*11) - u - ((chosenPixels[i+6] - 40) * u), u, u);
   }
 }
 
 void drawInitials(char firstname, char lastname){
   fill(baseColor);
-  text(firstname, 60, height/2);
+  text(firstname, u*3, (u*11)/2);
   fill(255);
-  text(lastname, width/2+20, height/2);
+  text(lastname, (u*16/2)+(u), (u*11)/2);
 }
