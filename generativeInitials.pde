@@ -1,12 +1,12 @@
 PFont pixelFont;
-int[] chosenPixels = new int[8];
 color baseColor = #492EFF;
-String name = "Bon Jon Io Quant";
+int u = 40;
 ArrayList<Character> initials = new ArrayList<Character>();
+int[] chosenPixels = new int[8];
 StringList memberNames = new StringList();
 
 void setup(){
-  size(320, 220, P2D); 
+  size(640, 440, P2D); 
   pixelFont = loadFont("creativetech-320.vlw");
   background(baseColor);
   textFont(pixelFont, 320);
@@ -23,14 +23,30 @@ void setup(){
 }
 
 void mousePressed(){
-  background(baseColor);
+  background(baseColor);      
+  getInitials(int(random(0, memberNames.size())));
   
-  int randomMember = int(random(0, memberNames.size()));
-  String selectedMember = memberNames.get(randomMember);
+  fill(255);
+  noStroke();
+  rect(u, u, (u*16/2)-(u), u*11-(2*u));
+  
+  strokeWeight(u);
+  stroke(255);
+  noFill();
+  rect((u*16/2)-u, u+(u/2), (u*16/2)-(u/2), u*11-(3*u));
+  
+  drawBorder(); 
+  drawInitials(initials.get(0), initials.get(1));
+  initials.clear();
+  println(initials);
+}
+
+void getInitials(int m){
+  String selectedMember = memberNames.get(m);
   println(selectedMember);
   
   String[] firstLast = split(selectedMember, " ");
-    
+  
   if (firstLast.length == 1){
     String firstname = firstLast[0];
     
@@ -43,22 +59,6 @@ void mousePressed(){
     initials.add(firstname.charAt(0));
     initials.add(lastname.charAt(0));
   }
-    
-  fill(255);
-  noStroke();
-  rect(20,20,140,180);
-  
-  strokeWeight(20);
-  stroke(255);
-  noFill();
-  rect(width/2-10,30,140,160);
-  
-  drawBorder(); 
-  drawInitials(initials.get(0), initials.get(1));
-  
-  initials.clear();
-  
-  println(initials);
 }
 
 void drawBorder(){
@@ -75,32 +75,31 @@ void drawBorder(){
     fill(255);
     
     if (chosenPixels[i] == 0){
-      rect(0,0,20,20);
+      rect(0,0,u,u);
     } else if (chosenPixels[i] == 15){
-      rect(width-20,0,20,20);
+      rect(width-u,0,u,u);
     } else {
-      fill(255);
-      rect(chosenPixels[i]*20,0,20,20);
+      rect(chosenPixels[i]*20,0,u,u);
       fill(baseColor);
-      rect(chosenPixels[i]*20,20,20,20);
+      rect(chosenPixels[i]*20,20,u,u);
     }
     
+    fill(255);
+    
     if (chosenPixels[i] == 25){
-      fill(255);
       rect(width-20, height-20, 20, 20);
     } else if (chosenPixels[i] == 40){
-      fill(255);
       rect(0, height-20, 20, 20);
     } else {
-      fill(255);
       rect(width - 20 - ((chosenPixels[i+4] - 25) * 20), height - 20, 20, 20);
       fill(baseColor);
-      rect(width - 20 - ((chosenPixels[i+4] - 25) * 20), height - 40, 20, 20);
+      rect(chosenPixels[i]*20,20,20,20);
     }
     
     fill(255);
     rect(width - 20, 20 + ((chosenPixels[i+2] - 16) * 20), 20, 20);
     rect(0, height - 20 - ((chosenPixels[i+6] - 40) * 20), 20, 20);
+    
     fill(baseColor);
     rect(width - 40, 20 + ((chosenPixels[i+2] - 16) * 20), 20, 20); 
     rect(20, height - 20 - ((chosenPixels[i+6] - 40) * 20), 20, 20);
