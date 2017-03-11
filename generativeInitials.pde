@@ -1,6 +1,6 @@
 PFont pixelFont;
 color baseColor = #492EFF;
-int u = 4;
+int u = 40;
 ArrayList<Character> initials = new ArrayList<Character>();
 int[] chosenPixels = new int[8];
 StringList memberNames = new StringList();
