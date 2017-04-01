@@ -1,9 +1,10 @@
 class Chip {
   PVector location;
+  PVector size = new PVector(32,22);
   ArrayList<Character> memberInitials;
   boolean blink;
   boolean chipBlinking;
-  
+
   Chip(float tempX, float tempY, ArrayList<Character> tempI, boolean tempB) {
     location = new PVector(random(tempX), random(tempY));
     memberInitials = new ArrayList<Character>();
@@ -22,14 +23,17 @@ class Chip {
   void display(color c) {
     fill(c);
     noStroke();
-    rect(location.x, location.y, (2*16/2)-(2), 2*11-(2*2));
+    rect(location.x+2, location.y+2, (size.x-4)/2, size.y-4);
     
     strokeWeight(2);
     stroke(c);
     noFill();
-    rect(location.x+12, location.y+1, (2*16/2)-(2/2), 2*11-(3*2));
+    rect(location.x+14, location.y+3, (size.x-4)/2+2 , size.y-6);
     
-    
+    fill(baseColor);
+    text("A", location.x+6, location.y+size.y-6);
+    fill(c);
+    text("B", location.x+18, location.y+size.y-6);
   }
   
   void blinkDisplay(Chip tempC){
