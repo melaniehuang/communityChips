@@ -4,6 +4,8 @@ class Chip {
   ArrayList<Character> memberInitials;
   boolean blink;
   boolean chipBlinking;
+  //int gridNumber
+  int[] borderPixels = new int[8];
 
   Chip(float tempX, float tempY, ArrayList<Character> tempI, boolean tempB) {
     location = new PVector(random(tempX), random(tempY));
@@ -18,6 +20,13 @@ class Chip {
       chipBlinking = false;
     }
     println(memberInitials);
+    
+    for (int p = 0; p < 2; p++){
+      borderPixels[p] = int(random(0,16));
+      borderPixels[p+2] = int(random(16,25));
+      borderPixels[p+4] = int(random(25,41));
+      borderPixels[p+6] =  int(random(41,50));
+    }
   }
 
   void display(color c) {
@@ -29,6 +38,8 @@ class Chip {
     stroke(c);
     noFill();
     rect(location.x+14, location.y+3, (size.x-4)/2+2 , size.y-6);
+    
+    drawBorder(c);
     
     fill(baseColor);
     text("A", location.x+6, location.y+size.y-6);
@@ -49,32 +60,17 @@ class Chip {
         display(255);
     }
   }
-}
-
-void createNames(StringList m, ArrayList<Character> i){
-  JSONObject request = loadJSONObject("members.json");
-  JSONArray members = request.getJSONArray("data");
   
-  for (int n = 0; n < members.size(); n++){
-    JSONObject member = members.getJSONObject(n); 
-    String name = member.getString("name");
-    m.append(name);
-  }
-}
-
-void getInitials(int nextMember){
-  String selectedMember = memberNames.get(nextMember);
-  println(selectedMember);
-  String[] firstLast = split(selectedMember, " ");
-  
-  if (firstLast.length == 1){
-    String firstname = firstLast[0];
-    initials.add(firstname.charAt(0));
-    initials.add(' ');
-  } else {
-    String firstname = firstLast[0];
-    String lastname = firstLast[firstLast.length-1];
-    initials.add(firstname.charAt(0));
-    initials.add(lastname.charAt(0));
+  void drawBorder(color tempC){
+    noStroke();
+    for (int i = 0; i < 2; i++){
+      fill(tempC);
+      rect(location.x+((borderPixels[i]-1)*2), location.y, 2, 2);
+      rect(location.x+(((borderPixels[i+4]-25)-1)*2), location.y+(size.y-2), 2, 2);
+      
+      fill(baseColor);
+      rect(location.x+((borderPixels[i]-1)*2), location.y+2, 2, 2);
+      rect(location.x+(((borderPixels[i+4]-25)-1)*2), location.y+(size.y-2)-2, 2, 2);
+    }
   }
 }
