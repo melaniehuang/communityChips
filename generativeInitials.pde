@@ -9,8 +9,9 @@ Chip chip2;
 
 void setup(){
   size(1200, 900, P2D); 
-  pixelFont = createFont("creativetech.ttf", u*16);
   background(baseColor);
+  
+  pixelFont = createFont("creativetech.ttf", u*16);
   textFont(pixelFont);
   textAlign(LEFT, BOTTOM);
   
@@ -49,6 +50,4 @@ void mousePressed(){
   //  popMatrix();
   //  initials.clear();
   //}
-  
-  
 }

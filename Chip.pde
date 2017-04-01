@@ -2,9 +2,12 @@ class Chip {
   PVector location;
   int[] borderStyle = new int[8];
   int sequence;
+  String name;
   
   Chip() {
     location = new PVector(0, 0);
+    sequence++;
+    getInitials(sequence); 
   }
   
   void createBorder(){
@@ -18,15 +21,14 @@ class Chip {
   }
   
   void getNew(){
-    location.x = location.x + 60;
+    
   }
   
   void display(){
-    sequence++;
-    getInitials(sequence);
     drawSquaresBG();
     drawBorder(); 
     drawInitials(initials.get(0), initials.get(1));
     initials.clear();
+    location.x = location.x + 60;
   }
 }
