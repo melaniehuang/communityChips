@@ -11,7 +11,6 @@ void createNames(StringList m, ArrayList<Character> i){
 
 void getInitials(int nextMember){
   String selectedMember = memberNames.get(nextMember);
-  println(selectedMember);
   String[] firstLast = split(selectedMember, " ");
   
   if (firstLast.length == 1){
@@ -23,5 +22,19 @@ void getInitials(int nextMember){
     String lastname = firstLast[firstLast.length-1];
     initials.add(firstname.charAt(0));
     initials.add(lastname.charAt(0));
+  }
+}
+
+boolean randomBool() {
+  return random(1) > .5;
+}
+
+void setupAllChips(PVector v, int g){
+  for (int i = 0; i < memberNames.size(); i++){
+    getInitials(i); 
+    boolean ia = randomBool();
+    Chip cx = new Chip(v.x +(32+g)*i, v.y, initials, ia);
+    chipList.add(cx);
+    initials.clear();
   }
 }
